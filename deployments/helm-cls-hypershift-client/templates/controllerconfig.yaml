@@ -117,22 +117,20 @@ spec:
           services:
             - service: APIServer
               servicePublishingStrategy:
-                type: LoadBalancer
+                route:
+                  hostname: api.{{`{{ .cluster.name }}`}}.{{`{{ .cluster.spec.dns.baseDomain }}`}}
+                type: Route
             - service: OAuthServer
               servicePublishingStrategy:
-                type: NodePort
-                nodePort:
-                  address: 0.0.0.0
+                route:
+                  hostname: oauth.{{`{{ .cluster.name }}`}}.{{`{{ .cluster.spec.dns.baseDomain }}`}}
+                type: Route
             - service: Konnectivity
               servicePublishingStrategy:
-                type: NodePort
-                nodePort:
-                  address: 0.0.0.0
+                type: Route
             - service: Ignition
               servicePublishingStrategy:
-                type: NodePort
-                nodePort:
-                  address: 0.0.0.0
+                type: Route
 
           infraID: {{`{{ .cluster.id }}`}}
 
